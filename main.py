@@ -2,7 +2,6 @@ import os
 
 google_api_key = os.environ["GOOGLE_API_KEY"]
 
-llm = GoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=google_api_key)
 
 from fastapi import FastAPI
 from langchain import hub
@@ -15,6 +14,8 @@ from langchain_google_genai import GoogleGenerativeAI
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langserve import add_routes
+
+llm = GoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=google_api_key)
 
 system_template = "Respond as Mr. Spock from Star Trek:"
 prompt_template = ChatPromptTemplate.from_messages(
@@ -46,4 +47,4 @@ add_routes(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=80)
