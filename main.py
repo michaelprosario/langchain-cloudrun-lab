@@ -1,8 +1,4 @@
-
 import os
-
-from langchain_google_genai import GoogleGenerativeAI
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 google_api_key = os.environ["GOOGLE_API_KEY"]
 
@@ -13,10 +9,10 @@ from langchain import hub
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import WebBaseLoader
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
+from langchain_google_genai import GoogleGenerativeAI
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langserve import add_routes
 
@@ -50,11 +46,4 @@ add_routes(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="localhost", port=8000)
-
-# user_input = ""
-# while user_input != "exit":
-#     user_input = input(">")
-#     output = rag_chain.invoke(user_input)
-#     print(output)
-    
+    uvicorn.run(app, host="0.0.0.0", port=8000)

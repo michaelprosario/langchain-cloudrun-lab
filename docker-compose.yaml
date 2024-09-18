@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  langchain-lab1:
+    image: langchain-lab1
+    ports:
+      - "8000:8000"
+    environment:
+      GOOGLE_API_KEY: "fixme"
+      LANGCHAIN_TRACING_V2: "true"
+      LANGCHAIN_ENDPOINT: "https://api.smith.langchain.com"
+      LANGCHAIN_API_KEY: "fixme"
+    restart: always
+
