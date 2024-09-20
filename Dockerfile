@@ -17,7 +17,7 @@ COPY . /app
 EXPOSE 80
 
 # Define environment variable
-ENV NAME LangChainService
+ENV NAME=LangChainService
 
 # Run the application
 CMD ["python", "main.py"]

@@ -2,17 +2,12 @@ import os
 
 google_api_key = os.environ["GOOGLE_API_KEY"]
 
-
 from fastapi import FastAPI
 from langchain import hub
-from langchain_chroma import Chroma
-from langchain_community.document_loaders import WebBaseLoader
+
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import RunnablePassthrough
 from langchain_google_genai import GoogleGenerativeAI
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langserve import add_routes
 
 llm = GoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=google_api_key)
@@ -22,7 +17,7 @@ prompt_template = ChatPromptTemplate.from_messages(
     [("system", system_template), ("user", "{text}")]
 )
 
-rag_chain = (
+bot_chain = (
     prompt_template
     | llm
     | StrOutputParser()
@@ -41,7 +36,7 @@ app = FastAPI(
 # Adding chain route
 add_routes(
     app,
-    rag_chain,
+    bot_chain,
     path="/chain",
 )
 
