@@ -26,7 +26,9 @@ docker-compose up -d
 ```
 
 # reference
+- https://ai.google.dev/aistudio
 - https://codelabs.developers.google.com/codelabs/cloud-run-deploy?hl=en#0
 - https://python.langchain.com/docs/tutorials/llm_chain/
+- https://python.langchain.com/docs/integrations/platforms/google/
 
 
