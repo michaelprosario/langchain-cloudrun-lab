@@ -17,6 +17,9 @@
             var messageElement = document.createElement('div');
             messageElement.innerHTML = sender + ': ' + message;
             chatMessages.appendChild(messageElement);
+
+            // scroll to the bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
         function sendMessageToServer(message) {
