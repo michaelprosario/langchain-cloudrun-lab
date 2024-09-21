@@ -34,16 +34,14 @@
                     kwargs: {}
                 })
             })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the server response here
-                    console.log('Server response:', data);
-                    // Assuming the server response contains a reply message
-                    addMessage('Spock', data.output);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server response:', data);
+                addMessage('Spock', data.output);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
 
         function sendMessage() {
@@ -58,10 +56,23 @@
             txtChatInput.value = '';
             txtChatInput.focus();
         }
+
+        function bodyOnLoad() {
+            var txtChatInput = document.getElementById('txtChatInput');
+            txtChatInput.focus();
+            
+            // when I press the enter key, send the message
+            txtChatInput.addEventListener('keyup', function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById('send-button').click();
+                }
+            });
+        }
     </script>
 </head>
 
-<body>
+<body onload="bodyOnLoad()">
     <div class="container mt-5"></div>
     <div class="card">
         <div class="card-header">
