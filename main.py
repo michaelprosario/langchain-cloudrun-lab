@@ -1,5 +1,7 @@
 import os
 
+from fastapi.responses import HTMLResponse
+
 google_api_key = os.environ["GOOGLE_API_KEY"]
 
 from fastapi import FastAPI
@@ -40,6 +42,14 @@ add_routes(
     path="/chain",
 )
 
+# read the index.html file
+@app.get("/")
+def read_root():
+    html = ""
+    with open("index.html", "r") as f:
+        html = f.read()
+    return HTMLResponse(content=html, status_code=200)
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=80)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Chat bot</title>
+    <script>
+        function addMessage(sender, message) {
+            var chatMessages = document.getElementById('txtMessages');
+            var messageElement = document.createElement('div');
+            messageElement.innerHTML = sender + ': ' + message;
+            chatMessages.appendChild(messageElement);
+        }
+
+        function sendMessageToServer(message) {
+            fetch('https://expert-telegram-5g9w674499f44xq-8000.app.github.dev/chain/invoke', {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    input: {
+                        text: message
+                    },
+                    config: {},
+                    kwargs: {}
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the server response here
+                    console.log('Server response:', data);
+                    // Assuming the server response contains a reply message
+                    addMessage('Spock', data.output);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        function sendMessage() {
+            var txtChatInput = document.getElementById('txtChatInput');
+            var message = document.getElementById('txtChatInput').value;
+            addMessage('User', message);
+
+            // send message to the server
+            sendMessageToServer(message);
+
+            // Clear the input
+            txtChatInput.value = '';
+            txtChatInput.focus();
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container mt-5"></div>
+    <div class="card">
+        <div class="card-header">
+            Chat Window
+        </div>
+        <div class="card-body" id="txtMessages" style="height: 300px; overflow-y: scroll;">
+            <!-- Chat messages will appear here -->
+        </div>
+        <div class="card-footer">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type a message" id="txtChatInput">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
