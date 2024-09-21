@@ -23,7 +23,7 @@
         }
 
         function sendMessageToServer(message) {
-            fetch('https://expert-telegram-5g9w674499f44xq-8000.app.github.dev/chain/invoke', {
+            fetch('/chain/invoke', {
                 method: 'POST',
                 headers: {
                     'accept': 'application/json',
@@ -40,7 +40,7 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Server response:', data);
-                addMessage('Spock', data.output);
+                addMessage('Bot', data.output);
             })
             .catch(error => {
                 console.error('Error:', error);
