@@ -12,6 +12,10 @@
         function addMessage(sender, message) {
             var chatMessages = document.getElementById('txtMessages');
             var messageElement = document.createElement('div');
+
+            // add a class called divMessage
+            messageElement.classList.add('divMessage');
+
             messageElement.innerHTML = sender + ': ' + message;
             chatMessages.appendChild(messageElement);
 
@@ -121,6 +125,13 @@
 
         .side-bar {            
             background-color: #CC9133;
+            font-size: 24pt;
+        }
+
+        .divMessage {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #0d0d0d;
             font-size: 24pt;
         }
     </style>
