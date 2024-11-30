@@ -5,3 +5,4 @@ langchain_community
 langchain_google_genai
 langserve[all]
 protobuf
+httpx==0.27.2
