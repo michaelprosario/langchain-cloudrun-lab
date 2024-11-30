@@ -1,20 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://rawgit.com/tklepzig/lcars.web/master/dist/css/lcars.web.min.css">
 
     <title>Chat bot</title>
     <script>
         function addMessage(sender, message) {
             var chatMessages = document.getElementById('txtMessages');
             var messageElement = document.createElement('div');
+
+            // add a class called divMessage
+            messageElement.classList.add('divMessage');
+
             messageElement.innerHTML = sender + ': ' + message;
             chatMessages.appendChild(messageElement);
 
@@ -37,14 +38,14 @@
                     kwargs: {}
                 })
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Server response:', data);
-                addMessage('Bot', data.output);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Server response:', data);
+                    addMessage('Bot', data.output);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
 
         function sendMessage() {
@@ -63,9 +64,9 @@
         function bodyOnLoad() {
             var txtChatInput = document.getElementById('txtChatInput');
             txtChatInput.focus();
-            
+
             // when I press the enter key, send the message
-            txtChatInput.addEventListener('keyup', function(event) {
+            txtChatInput.addEventListener('keyup', function (event) {
                 if (event.keyCode === 13) {
                     event.preventDefault();
                     document.getElementById('send-button').click();
@@ -73,28 +74,105 @@
             });
         }
     </script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #divUserInput {
+            display: flex;
+            align-items: center;
+        }
+
+        #txtChatInput {
+            flex: 1;
+            margin-right: 10px;
+            margin-left: 20px;
+            background-color: #0d0d0d;
+            border: 0px solid #0d0d0d;
+            color: #CC9133;
+            border-top: 0px solid #0d0d0d;
+            font-size: 24pt;
+        }
+
+        .input-group-append {
+            display: flex;
+            align-items: center;
+        }
+
+        #send-button {
+            margin-left: 10px;
+            /* Optional: Add some space between the input and the button */
+            background-color: #CC9133;
+        }
+
+        #send-button:hover {
+            background-color: #d3a864;
+        }
+
+        #txtMessages {
+            margin-left: 20px;
+            font-size: 24pt;
+            overflow-y: auto;
+            height: 500px;
+        }
+
+        #txtChatInput:focus {
+            border-color: black; /* Change the border color to white when the input is focused */
+            outline: none; /* Optionally remove the default outline */
+        }        
+
+        .side-bar {            
+            background-color: #CC9133;
+            font-size: 24pt;
+        }
+
+        .divMessage {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background-color: #0d0d0d;
+            font-size: 24pt;
+        }
+    </style>
 </head>
 
 <body onload="bodyOnLoad()">
-    <div class="container mt-5"></div>
-    <div class="card">
-        <div class="card-header">
-            Chat Window
+    <div class="panel top left top-xxs left-xl dim red" style="flex: 4">
+        <div class="row group group-xxs">
+            <div class="area flex dim red"></div>
+            <div class="label text dim red">LCARS</div>
+            <div class="area round-r dim red"></div>
         </div>
-        <div class="card-body" id="txtMessages" style="height: 300px; overflow-y: scroll;">
-            <!-- Chat messages will appear here -->
+        <div class="column">
+
+            <div class="area flex side-bar" >
+                Welcome to bot chat
+                <br><br>
+                Version 1.0
+            </div>
         </div>
-        <div class="card-footer">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Type a message" id="txtChatInput">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="send-button" onclick="sendMessage()">Send</button>
+        <div class="content">
+            <div class="group">
+                <button class="btn flex round-l dim orange"></button>
+                <div class="label text dim orange">Bot Chat</div>
+                <div class="area round-r dim orange">
+                </div>
+            </div>
+            <div>
+                <div id="divUserInput">
+                    <input type="text" placeholder="Type a message" id="txtChatInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="send-button"
+                            onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+                <div id="txtMessages">
+                    <!-- Chat messages will appear here -->
                 </div>
             </div>
         </div>
     </div>
-    </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

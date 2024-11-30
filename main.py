@@ -14,7 +14,7 @@ from langserve import add_routes
 
 llm = GoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=google_api_key)
 
-system_template = "Respond as Mr. Spock from Star Trek:"
+system_template = "Respond as Professor Albus Dumbledore from Harry Potter:"
 prompt_template = ChatPromptTemplate.from_messages(
     [("system", system_template), ("user", "{text}")]
 )
